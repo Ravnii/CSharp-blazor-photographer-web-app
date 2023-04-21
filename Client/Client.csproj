@@ -15,6 +15,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Component.razor.razor" />
+    <Content Remove="Pages\Contact.razor.razor" />
+    <Content Remove="wwwroot\js\aos.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Contact.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" PrivateAssets="all" />
   </ItemGroup>
