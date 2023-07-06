@@ -1,29 +1,42 @@
 ﻿@page "/"
-@inject IJSRuntime JS
+@using BlazorApp.Shared
+@inject HttpClient Http
 
 <PageTitle>Fotograf Vicki Grønnemose</PageTitle>
 
 <header class="masthead">
-    <div class="container px-4 px-lg-5 h-100">
-        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-            <div class="col-lg-8 align-self-end">
-                <h1 class="text-white font-weight-bold">Fotograf med plads til både små og store</h1>
-                <hr class="divider" />
-            </div>
-            <div class="col-lg-8 align-self-baseline">
-                <p class="text-white-75 mb-5">
-                    Fotograf Vicki har mere end 10 års erfaring. 
-                    Med eget studio kan der tages billeder i rolige omgivelse der, 
-                    eller det kan være som udkørende fotograf
-                </p>
-                <a class="button" href="/contact">Kontakt mig her</a>
-            </div>
+    <div class="container mx-auto px-4 text-center">
+        <div>
+            <h1 class="text-white font-weight-bold">@content.Title</h1>
+            <hr class="divider" />
+        </div>
+        <div>
+            <p class="text-white-75 mb-5">@content.Summary</p>
+            <a class="cstm-btn" href="/contact">Kontakt mig her</a>
         </div>
     </div>
 </header>
 <section id="about">
-    <h2>Vicki Grønnemose</h2>
+    <div class="container te">
+        <h2>Om Vicki Grønnemose</h2>
+    </div>
 </section>
 <section id="showcase">
     <h2>Se her</h2>
 </section>
+
+@code {
+    private FrontpageContent content = new FrontpageContent();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            content = await Http.GetFromJsonAsync<FrontpageContent>("/api/GetFrontpageContent") ?? new FrontpageContent { Title = "", Summary = "" };
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}
